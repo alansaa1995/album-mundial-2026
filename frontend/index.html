@@ -310,7 +310,7 @@ button:active{transform:scale(.97)}
 <div id="toast"></div>
 
 <script>
-const API = 'http://127.0.0.1:8000/api/v1';
+const API = window.location.origin + '/api/v1';
 let me = null;
 let allStickers = [];
 let inv = {};           // code → {is_pasted, quantity}
