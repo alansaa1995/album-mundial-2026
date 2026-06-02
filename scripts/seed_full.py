@@ -591,6 +591,9 @@ def run_seed():
         existing = db.query(Sticker).count()
         if existing > 0:
             print(f"Limpiando {existing} figuritas existentes...")
+            # Borrar primero el inventario (FK) antes de borrar figuritas
+            from app.models.inventory import UserSticker
+            db.query(UserSticker).delete()
             db.query(Sticker).delete()
             db.commit()
 
