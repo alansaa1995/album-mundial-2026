@@ -6,90 +6,90 @@
 <title>Álbum Mundial 2026</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#0a0a1a;color:#f0f0f0;min-height:100vh}
+body{font-family:'Segoe UI',sans-serif;background:#0d0d0d;color:#f0f0f0;min-height:100vh}
 
 /* ── HEADER ── */
-header{background:linear-gradient(135deg,#1a1a3e,#2d1b69,#1a1a3e);border-bottom:2px solid #f0c040;
+header{background:linear-gradient(135deg,#1a0808,#7f1d1d,#1a0808);border-bottom:2px solid #ef4444;
   padding:13px 22px;display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:100}
-header h1{font-size:1.15rem;color:#f0c040;letter-spacing:1px}
-#user-badge{background:#f0c040;color:#1a1a3e;padding:5px 14px;border-radius:20px;
+header h1{font-size:1.15rem;color:#ef4444;letter-spacing:1px}
+#user-badge{background:#ef4444;color:#fff;padding:5px 14px;border-radius:20px;
   font-weight:700;font-size:.83rem;display:none;cursor:pointer}
 
 main{max-width:1120px;margin:0 auto;padding:22px 14px}
 
 /* ── AUTH ── */
-.auth-box{background:#13132b;border:1px solid #2a2a4a;border-radius:12px;padding:28px;
+.auth-box{background:#161616;border:1px solid #2a2a2a;border-radius:12px;padding:28px;
   max-width:420px;margin:40px auto}
-.auth-box h2{color:#f0c040;margin-bottom:20px;font-size:1.1rem}
+.auth-box h2{color:#ef4444;margin-bottom:20px;font-size:1.1rem}
 .auth-tabs{display:flex;gap:8px;margin-bottom:22px}
-.auth-tab{flex:1;padding:9px;border:1px solid #3a3a5e;background:#1e1e3e;color:#888;
+.auth-tab{flex:1;padding:9px;border:1px solid #383838;background:#1f1f1f;color:#888;
   border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s}
-.auth-tab.active{background:#f0c040;color:#1a1a3e;border-color:#f0c040}
+.auth-tab.active{background:#ef4444;color:#fff;border-color:#ef4444}
 
 /* ── FORM ELEMENTS ── */
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
 label{font-size:.75rem;color:#aaa;text-transform:uppercase;letter-spacing:.5px}
-input,select{background:#1e1e3e;border:1px solid #3a3a5e;border-radius:8px;color:#f0f0f0;
+input,select{background:#1f1f1f;border:1px solid #383838;border-radius:8px;color:#f0f0f0;
   padding:10px 13px;font-size:.93rem;outline:none;transition:border-color .2s;width:100%}
-input:focus,select:focus{border-color:#f0c040}
-button{background:#f0c040;color:#1a1a3e;border:none;border-radius:8px;padding:10px 20px;
+input:focus,select:focus{border-color:#ef4444}
+button{background:#ef4444;color:#fff;border:none;border-radius:8px;padding:10px 20px;
   font-weight:700;font-size:.92rem;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}
-button:hover{background:#ffd060}
+button:hover{background:#f87171}
 button:active{transform:scale(.97)}
-.sec{background:#2a2a4a;color:#f0f0f0;border:1px solid #3a3a5e}
-.sec:hover{background:#3a3a5e}
+.sec{background:#2a2a2a;color:#f0f0f0;border:1px solid #383838}
+.sec:hover{background:#383838}
 .btn-full{width:100%;margin-top:4px}
 
 /* ── TABS ── */
-.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid #2a2a4a;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid #2a2a2a;flex-wrap:wrap}
 .tab-btn{background:none;border:none;color:#888;font-size:.9rem;padding:10px 16px;cursor:pointer;
   border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
-.tab-btn:hover{color:#f0c040}
-.tab-btn.active{color:#f0c040;border-bottom-color:#f0c040;font-weight:700}
+.tab-btn:hover{color:#ef4444}
+.tab-btn.active{color:#ef4444;border-bottom-color:#ef4444;font-weight:700}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
 /* ── CARD ── */
-.card{background:#13132b;border:1px solid #2a2a4a;border-radius:12px;padding:20px;margin-bottom:18px}
-.card h2{font-size:1rem;color:#f0c040;margin-bottom:14px}
+.card{background:#161616;border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin-bottom:18px}
+.card h2{font-size:1rem;color:#ef4444;margin-bottom:14px}
 .hint{font-size:.8rem;color:#666;margin-bottom:14px}
 
 /* ── PROGRESS ── */
 .plabel{display:flex;justify-content:space-between;font-size:.83rem;color:#aaa;margin-bottom:7px}
-.bar-bg{background:#1e1e3e;border-radius:999px;height:18px;overflow:hidden;border:1px solid #2a2a4a}
-.bar-fill{height:100%;background:linear-gradient(90deg,#f0c040,#ff6b35);border-radius:999px;
+.bar-bg{background:#1f1f1f;border-radius:999px;height:18px;overflow:hidden;border:1px solid #2a2a2a}
+.bar-fill{height:100%;background:linear-gradient(90deg,#ef4444,#f97316);border-radius:999px;
   transition:width .6s ease;min-width:2px}
 .stats{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}
-.stat{background:#1e1e3e;border:1px solid #2a2a4a;border-radius:10px;padding:11px 16px;
+.stat{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:10px;padding:11px 16px;
   text-align:center;flex:1;min-width:80px}
-.sv{font-size:1.6rem;font-weight:700;color:#f0c040}
+.sv{font-size:1.6rem;font-weight:700;color:#ef4444}
 .sl{font-size:.7rem;color:#888;margin-top:3px}
 
 /* ── STICKER GRID ── */
 .section-title{font-size:.73rem;color:#888;text-transform:uppercase;letter-spacing:1px;
-  margin:16px 0 7px;border-bottom:1px solid #2a2a4a;padding-bottom:4px}
+  margin:16px 0 7px;border-bottom:1px solid #2a2a2a;padding-bottom:4px}
 .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:7px}
-.stk{background:#1e1e3e;border:2px solid #2a2a4a;border-radius:9px;padding:8px 6px;
+.stk{background:#1f1f1f;border:2px solid #2a2a2a;border-radius:9px;padding:8px 6px;
   text-align:center;cursor:pointer;transition:all .17s;position:relative;user-select:none}
-.stk:hover{border-color:#f0c040;transform:translateY(-2px)}
+.stk:hover{border-color:#ef4444;transform:translateY(-2px)}
 .stk.pasted{border-color:#40c070;background:#0b211a}
-.stk.repeated{border-color:#4a8fff;background:#0b1a30}
+.stk.repeated{border-color:#f97316;background:#1a0d00}
 .stk.special{border-style:dashed}
-.sc{font-size:.73rem;font-weight:700;color:#f0c040}
+.sc{font-size:.73rem;font-weight:700;color:#ef4444}
 .stk.pasted .sc{color:#40c070}
-.stk.repeated .sc{color:#4a8fff}
+.stk.repeated .sc{color:#f97316}
 .sn{font-size:.63rem;color:#aaa;margin-top:3px;line-height:1.3;overflow:hidden;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.sb{position:absolute;top:3px;right:4px;font-size:.58rem;background:#4a8fff;color:#fff;
+.sb{position:absolute;top:3px;right:4px;font-size:.58rem;background:#f97316;color:#fff;
   border-radius:99px;padding:1px 4px;font-weight:700}
 .si{position:absolute;top:3px;left:4px;font-size:.68rem}
 
 /* ── FILTER BAR ── */
 .fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.fbtn{background:#1e1e3e;color:#888;border:1px solid #2a2a4a;border-radius:20px;
+.fbtn{background:#1f1f1f;color:#888;border:1px solid #2a2a2a;border-radius:20px;
   padding:5px 11px;font-size:.76rem;cursor:pointer;transition:all .2s;font-weight:400}
-.fbtn:hover,.fbtn.active{background:#f0c040;color:#1a1a3e;border-color:#f0c040;font-weight:700}
+.fbtn:hover,.fbtn.active{background:#ef4444;color:#fff;border-color:#ef4444;font-weight:700}
 
 /* ── LEGEND ── */
 .legend{display:flex;gap:12px;font-size:.74rem;color:#888;flex-wrap:wrap;margin-bottom:9px}
@@ -102,34 +102,34 @@ button:active{transform:scale(.97)}
 
 /* ── DUPLICATES ── */
 .dl{display:flex;flex-direction:column;gap:7px}
-.di{display:flex;align-items:center;gap:10px;background:#1e1e3e;border:1px solid #2a2a4a;
+.di{display:flex;align-items:center;gap:10px;background:#1f1f1f;border:1px solid #2a2a2a;
   border-radius:8px;padding:9px 13px}
-.dc{font-weight:700;color:#4a8fff;min-width:52px;font-size:.88rem}
+.dc{font-weight:700;color:#f97316;min-width:52px;font-size:.88rem}
 .dn{flex:1;font-size:.86rem;color:#ccc}
-.dq{background:#4a8fff;color:#fff;border-radius:99px;padding:2px 9px;font-size:.76rem;font-weight:700}
+.dq{background:#f97316;color:#fff;border-radius:99px;padding:2px 9px;font-size:.76rem;font-weight:700}
 
 /* ── REPORT ── */
 .rep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:20px}
-.rep-card{background:#1e1e3e;border:1px solid #2a2a4a;border-radius:10px;padding:13px 14px}
+.rep-card{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:10px;padding:13px 14px}
 .rep-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.rep-sec{font-size:.83rem;font-weight:700;color:#f0c040;flex:1;margin-right:8px;
+.rep-sec{font-size:.83rem;font-weight:700;color:#ef4444;flex:1;margin-right:8px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rep-pct{font-size:.83rem;font-weight:700;color:#aaa}
-.rep-bar{background:#13132b;border-radius:999px;height:7px;overflow:hidden;margin-bottom:8px}
+.rep-bar{background:#161616;border-radius:999px;height:7px;overflow:hidden;margin-bottom:8px}
 .rep-fill{height:100%;border-radius:999px;transition:width .5s ease}
 .rep-counts{display:flex;gap:8px;font-size:.72rem}
 .c-ok{color:#40c070;font-weight:600}
-.c-rep{color:#4a8fff;font-weight:600}
+.c-rep{color:#f97316;font-weight:600}
 .c-mis{color:#f06060;font-weight:600}
 
 .rep-table{width:100%;border-collapse:collapse;font-size:.83rem}
 .rep-table th{text-align:left;padding:8px 10px;color:#888;font-size:.72rem;
-  text-transform:uppercase;border-bottom:1px solid #2a2a4a;background:#0f0f22}
-.rep-table td{padding:7px 10px;border-bottom:1px solid #1a1a30}
-.rep-table tr:hover td{background:#1e1e3e}
+  text-transform:uppercase;border-bottom:1px solid #2a2a2a;background:#111111}
+.rep-table td{padding:7px 10px;border-bottom:1px solid #1c1c1c}
+.rep-table tr:hover td{background:#1f1f1f}
 .tag{display:inline-block;border-radius:5px;padding:2px 8px;font-size:.72rem;font-weight:700}
 .tag-ok{background:#0b3320;color:#40c070}
-.tag-rep{background:#0b1a35;color:#4a8fff}
+.tag-rep{background:#1a0d00;color:#f97316}
 .tag-mis{background:#2a1010;color:#f06060}
 .rep-search{margin-bottom:12px}
 
@@ -137,15 +137,15 @@ button:active{transform:scale(.97)}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;
   align-items:center;justify-content:center}
 .overlay.open{display:flex}
-.modal{background:#13132b;border:1px solid #2a2a4a;border-radius:14px;padding:24px;
+.modal{background:#161616;border:1px solid #2a2a2a;border-radius:14px;padding:24px;
   max-width:350px;width:90%}
-.modal h3{color:#f0c040;margin-bottom:4px;font-size:1.05rem}
+.modal h3{color:#ef4444;margin-bottom:4px;font-size:1.05rem}
 .modal p{color:#aaa;font-size:.86rem;margin-bottom:16px;min-height:20px}
 .mbtns{display:flex;gap:7px;flex-wrap:wrap}
 .mbtns button{flex:1;min-width:75px}
 
 /* ── TOAST ── */
-#toast{position:fixed;bottom:20px;right:20px;background:#1e1e3e;border:1px solid #f0c040;
+#toast{position:fixed;bottom:20px;right:20px;background:#1f1f1f;border:1px solid #ef4444;
   border-radius:10px;padding:11px 17px;font-size:.86rem;opacity:0;transform:translateY(8px);
   transition:all .25s;z-index:999;max-width:270px;pointer-events:none}
 #toast.show{opacity:1;transform:translateY(0)}
@@ -214,8 +214,8 @@ button:active{transform:scale(.97)}
       <h2>📖 Catálogo — hacé click en una figurita para marcarla</h2>
       <div class="legend">
         <span><span class="dot" style="background:#40c070"></span>Pegada</span>
-        <span><span class="dot" style="background:#4a8fff"></span>Repetida</span>
-        <span><span class="dot" style="background:#2a2a4a"></span>Sin obtener</span>
+        <span><span class="dot" style="background:#f97316"></span>Repetida</span>
+        <span><span class="dot" style="background:#2a2a2a"></span>Sin obtener</span>
       </div>
       <div class="fbar" id="sec-filters"></div>
       <div id="sticker-catalog"></div>
@@ -519,7 +519,7 @@ function renderRepSections(){
     const missing  = items.length-pasted-repeated;
     const pct      = items.length ? Math.round(pasted/items.length*100) : 0;
     // color: verde si >75%, amarillo si >40%, rojo si <=40%
-    const barColor = pct>=75?'#40c070':pct>=40?'#f0c040':'#f06060';
+    const barColor = pct>=75?'#40c070':pct>=40?'#ef4444':'#f06060';
     return `<div class="rep-card">
       <div class="rep-head">
         <span class="rep-sec" title="${esc(sec)}">${esc(sec)}</span>
@@ -563,7 +563,7 @@ function renderRepTable(){
     else                     { tag='<span class="tag tag-rep">🔄 Repetida</span>';     status='repeated';}
     const qty = st&&st.quantity>1 ? `<span class="dq" style="font-size:.7rem">x${st.quantity}</span>` : '';
     return `<tr>
-      <td><strong style="color:#f0c040">${s.code}</strong></td>
+      <td><strong style="color:#ef4444">${s.code}</strong></td>
       <td>${esc(s.section)}</td>
       <td>${esc(s.player_name||s.description||'—')}</td>
       <td>${tag} ${qty}</td>
