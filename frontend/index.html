@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Álbum Mundial 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a1a;color:#f0f0f0;min-height:100vh}
+
+/* ── HEADER ── */
+header{background:linear-gradient(135deg,#1a1a3e,#2d1b69,#1a1a3e);border-bottom:2px solid #f0c040;
+  padding:13px 22px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100}
+header h1{font-size:1.15rem;color:#f0c040;letter-spacing:1px}
+#user-badge{background:#f0c040;color:#1a1a3e;padding:5px 14px;border-radius:20px;
+  font-weight:700;font-size:.83rem;display:none;cursor:pointer}
+
+main{max-width:1120px;margin:0 auto;padding:22px 14px}
+
+/* ── AUTH ── */
+.auth-box{background:#13132b;border:1px solid #2a2a4a;border-radius:12px;padding:28px;
+  max-width:420px;margin:40px auto}
+.auth-box h2{color:#f0c040;margin-bottom:20px;font-size:1.1rem}
+.auth-tabs{display:flex;gap:8px;margin-bottom:22px}
+.auth-tab{flex:1;padding:9px;border:1px solid #3a3a5e;background:#1e1e3e;color:#888;
+  border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s}
+.auth-tab.active{background:#f0c040;color:#1a1a3e;border-color:#f0c040}
+
+/* ── FORM ELEMENTS ── */
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+label{font-size:.75rem;color:#aaa;text-transform:uppercase;letter-spacing:.5px}
+input,select{background:#1e1e3e;border:1px solid #3a3a5e;border-radius:8px;color:#f0f0f0;
+  padding:10px 13px;font-size:.93rem;outline:none;transition:border-color .2s;width:100%}
+input:focus,select:focus{border-color:#f0c040}
+button{background:#f0c040;color:#1a1a3e;border:none;border-radius:8px;padding:10px 20px;
+  font-weight:700;font-size:.92rem;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}
+button:hover{background:#ffd060}
+button:active{transform:scale(.97)}
+.sec{background:#2a2a4a;color:#f0f0f0;border:1px solid #3a3a5e}
+.sec:hover{background:#3a3a5e}
+.btn-full{width:100%;margin-top:4px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid #2a2a4a;flex-wrap:wrap}
+.tab-btn{background:none;border:none;color:#888;font-size:.9rem;padding:10px 16px;cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn:hover{color:#f0c040}
+.tab-btn.active{color:#f0c040;border-bottom-color:#f0c040;font-weight:700}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── CARD ── */
+.card{background:#13132b;border:1px solid #2a2a4a;border-radius:12px;padding:20px;margin-bottom:18px}
+.card h2{font-size:1rem;color:#f0c040;margin-bottom:14px}
+.hint{font-size:.8rem;color:#666;margin-bottom:14px}
+
+/* ── PROGRESS ── */
+.plabel{display:flex;justify-content:space-between;font-size:.83rem;color:#aaa;margin-bottom:7px}
+.bar-bg{background:#1e1e3e;border-radius:999px;height:18px;overflow:hidden;border:1px solid #2a2a4a}
+.bar-fill{height:100%;background:linear-gradient(90deg,#f0c040,#ff6b35);border-radius:999px;
+  transition:width .6s ease;min-width:2px}
+.stats{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}
+.stat{background:#1e1e3e;border:1px solid #2a2a4a;border-radius:10px;padding:11px 16px;
+  text-align:center;flex:1;min-width:80px}
+.sv{font-size:1.6rem;font-weight:700;color:#f0c040}
+.sl{font-size:.7rem;color:#888;margin-top:3px}
+
+/* ── STICKER GRID ── */
+.section-title{font-size:.73rem;color:#888;text-transform:uppercase;letter-spacing:1px;
+  margin:16px 0 7px;border-bottom:1px solid #2a2a4a;padding-bottom:4px}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:7px}
+.stk{background:#1e1e3e;border:2px solid #2a2a4a;border-radius:9px;padding:8px 6px;
+  text-align:center;cursor:pointer;transition:all .17s;position:relative;user-select:none}
+.stk:hover{border-color:#f0c040;transform:translateY(-2px)}
+.stk.pasted{border-color:#40c070;background:#0b211a}
+.stk.repeated{border-color:#4a8fff;background:#0b1a30}
+.stk.special{border-style:dashed}
+.sc{font-size:.73rem;font-weight:700;color:#f0c040}
+.stk.pasted .sc{color:#40c070}
+.stk.repeated .sc{color:#4a8fff}
+.sn{font-size:.63rem;color:#aaa;margin-top:3px;line-height:1.3;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sb{position:absolute;top:3px;right:4px;font-size:.58rem;background:#4a8fff;color:#fff;
+  border-radius:99px;padding:1px 4px;font-weight:700}
+.si{position:absolute;top:3px;left:4px;font-size:.68rem}
+
+/* ── FILTER BAR ── */
+.fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.fbtn{background:#1e1e3e;color:#888;border:1px solid #2a2a4a;border-radius:20px;
+  padding:5px 11px;font-size:.76rem;cursor:pointer;transition:all .2s;font-weight:400}
+.fbtn:hover,.fbtn.active{background:#f0c040;color:#1a1a3e;border-color:#f0c040;font-weight:700}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:12px;font-size:.74rem;color:#888;flex-wrap:wrap;margin-bottom:9px}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%}
+
+/* ── FORM ROW ── */
+.frow{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.frow .fg{flex:1;min-width:130px;margin-bottom:0}
+
+/* ── DUPLICATES ── */
+.dl{display:flex;flex-direction:column;gap:7px}
+.di{display:flex;align-items:center;gap:10px;background:#1e1e3e;border:1px solid #2a2a4a;
+  border-radius:8px;padding:9px 13px}
+.dc{font-weight:700;color:#4a8fff;min-width:52px;font-size:.88rem}
+.dn{flex:1;font-size:.86rem;color:#ccc}
+.dq{background:#4a8fff;color:#fff;border-radius:99px;padding:2px 9px;font-size:.76rem;font-weight:700}
+
+/* ── REPORT ── */
+.rep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:20px}
+.rep-card{background:#1e1e3e;border:1px solid #2a2a4a;border-radius:10px;padding:13px 14px}
+.rep-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rep-sec{font-size:.83rem;font-weight:700;color:#f0c040;flex:1;margin-right:8px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rep-pct{font-size:.83rem;font-weight:700;color:#aaa}
+.rep-bar{background:#13132b;border-radius:999px;height:7px;overflow:hidden;margin-bottom:8px}
+.rep-fill{height:100%;border-radius:999px;transition:width .5s ease}
+.rep-counts{display:flex;gap:8px;font-size:.72rem}
+.c-ok{color:#40c070;font-weight:600}
+.c-rep{color:#4a8fff;font-weight:600}
+.c-mis{color:#f06060;font-weight:600}
+
+.rep-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.rep-table th{text-align:left;padding:8px 10px;color:#888;font-size:.72rem;
+  text-transform:uppercase;border-bottom:1px solid #2a2a4a;background:#0f0f22}
+.rep-table td{padding:7px 10px;border-bottom:1px solid #1a1a30}
+.rep-table tr:hover td{background:#1e1e3e}
+.tag{display:inline-block;border-radius:5px;padding:2px 8px;font-size:.72rem;font-weight:700}
+.tag-ok{background:#0b3320;color:#40c070}
+.tag-rep{background:#0b1a35;color:#4a8fff}
+.tag-mis{background:#2a1010;color:#f06060}
+.rep-search{margin-bottom:12px}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;
+  align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:#13132b;border:1px solid #2a2a4a;border-radius:14px;padding:24px;
+  max-width:350px;width:90%}
+.modal h3{color:#f0c040;margin-bottom:4px;font-size:1.05rem}
+.modal p{color:#aaa;font-size:.86rem;margin-bottom:16px;min-height:20px}
+.mbtns{display:flex;gap:7px;flex-wrap:wrap}
+.mbtns button{flex:1;min-width:75px}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:20px;right:20px;background:#1e1e3e;border:1px solid #f0c040;
+  border-radius:10px;padding:11px 17px;font-size:.86rem;opacity:0;transform:translateY(8px);
+  transition:all .25s;z-index:999;max-width:270px;pointer-events:none}
+#toast.show{opacity:1;transform:translateY(0)}
+#toast.err{border-color:#f04040}
+#toast.ok{border-color:#40c070}
+.empty{text-align:center;padding:34px;color:#555}
+
+/* ── PRINT ── */
+@media print{
+  header,.tabs,#section-filters,.fbar,.mbtns,#toast,.overlay,button{display:none!important}
+  body{background:#fff;color:#000}
+  .card{border:1px solid #ccc;background:#fff;break-inside:avoid}
+  .rep-card{border:1px solid #ccc;background:#fff}
+  .rep-sec,.rep-pct,.stat-v,.sv{color:#000}
+  .rep-fill{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚽ Álbum Mundial 2026</h1>
+  <div id="user-badge" title="Click para cerrar sesión" onclick="logout()">
+    👤 <span id="badge-name"></span>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══ AUTH ═══ -->
+<div id="auth-section">
+  <div class="auth-box">
+    <h2>⚽ Álbum de Figuritas</h2>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="t-reg" onclick="showAuth('reg')">Registrarme</button>
+      <button class="auth-tab"        id="t-log" onclick="showAuth('log')">Ya tengo cuenta</button>
+    </div>
+    <div id="form-reg">
+      <div class="fg"><label>Usuario</label><input id="r-user" placeholder="ej: messi10" autocomplete="off"/></div>
+      <div class="fg"><label>Email</label><input id="r-email" type="email" placeholder="ej: yo@mail.com"/></div>
+      <div class="fg"><label>Contraseña</label><input id="r-pass" type="password" placeholder="••••••"
+        onkeydown="if(event.key==='Enter')doRegister()"/></div>
+      <button class="btn-full" onclick="doRegister()">Crear cuenta →</button>
+    </div>
+    <div id="form-log" style="display:none">
+      <div class="fg"><label>Usuario</label><input id="l-user" placeholder="Tu usuario" autocomplete="off"/></div>
+      <div class="fg"><label>Contraseña</label><input id="l-pass" type="password" placeholder="••••••"
+        onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn-full" onclick="doLogin()">Entrar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app-section" style="display:none">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'album')">📖 Álbum</button>
+    <button class="tab-btn"        onclick="switchTab(this,'agregar')">➕ Agregar</button>
+    <button class="tab-btn"        onclick="switchTab(this,'reporte')">📋 Reporte</button>
+    <button class="tab-btn"        onclick="switchTab(this,'progreso')">📊 Progreso</button>
+  </div>
+
+  <!-- ÁLBUM -->
+  <div class="tab-panel active" id="tab-album">
+    <div class="card">
+      <h2>📖 Catálogo — hacé click en una figurita para marcarla</h2>
+      <div class="legend">
+        <span><span class="dot" style="background:#40c070"></span>Pegada</span>
+        <span><span class="dot" style="background:#4a8fff"></span>Repetida</span>
+        <span><span class="dot" style="background:#2a2a4a"></span>Sin obtener</span>
+      </div>
+      <div class="fbar" id="sec-filters"></div>
+      <div id="sticker-catalog"></div>
+    </div>
+  </div>
+
+  <!-- AGREGAR -->
+  <div class="tab-panel" id="tab-agregar">
+    <div class="card">
+      <h2>➕ Registrar por código</h2>
+      <p class="hint">También podés hacer click directo en cualquier figurita del álbum.</p>
+      <div class="frow">
+        <div class="fg">
+          <label>Código</label>
+          <input id="add-code" placeholder="ej: ARG3, BRA5, EST1" style="text-transform:uppercase"
+            onkeydown="if(event.key==='Enter')addByCode()"/>
+        </div>
+        <div class="fg" style="max-width:165px">
+          <label>Acción</label>
+          <select id="add-action">
+            <option value="obtained">✅ Pegarla</option>
+            <option value="repeated">🔄 Repetida</option>
+          </select>
+        </div>
+        <button onclick="addByCode()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTE -->
+  <div class="tab-panel" id="tab-reporte">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <h2 style="margin:0">📋 Reporte del álbum</h2>
+        <button class="sec" style="font-size:.8rem;padding:7px 14px" onclick="window.print()">🖨️ Imprimir</button>
+      </div>
+
+      <!-- Resumen por sección -->
+      <h3 style="font-size:.83rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Resumen por sección</h3>
+      <div class="rep-grid" id="rep-sections"></div>
+
+      <!-- Tabla detalle -->
+      <h3 style="font-size:.83rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px">Detalle de figuritas</h3>
+      <div class="fbar" id="rep-filters">
+        <button class="fbtn active" onclick="repFilter(this,'all')">Todas</button>
+        <button class="fbtn" onclick="repFilter(this,'pasted')">✅ Pegadas</button>
+        <button class="fbtn" onclick="repFilter(this,'missing')">❌ Faltantes</button>
+        <button class="fbtn" onclick="repFilter(this,'repeated')">🔄 Repetidas</button>
+      </div>
+      <div class="rep-search fg" style="margin-bottom:10px">
+        <input id="rep-search" placeholder="Buscar por código o jugador…" oninput="renderRepTable()"/>
+      </div>
+      <div id="rep-table-wrap"></div>
+    </div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div class="tab-panel" id="tab-progreso">
+    <div class="card">
+      <h2>📊 Mi progreso</h2>
+      <div class="plabel"><span>Álbum completado</span><span id="pct-lbl">0%</span></div>
+      <div class="bar-bg"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+      <div class="stats">
+        <div class="stat"><div class="sv" id="s-pasted">0</div><div class="sl">Pegadas</div></div>
+        <div class="stat"><div class="sv" id="s-total">0</div><div class="sl">Total álbum</div></div>
+        <div class="stat"><div class="sv" id="s-miss">0</div><div class="sl">Faltan</div></div>
+        <div class="stat"><div class="sv" id="s-dups">0</div><div class="sl">Repetidas</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🔄 Figuritas para cambiar</h2>
+      <div id="dup-list-wrap"></div>
+    </div>
+  </div>
+
+</div><!-- /app-section -->
+</main>
+
+<!-- MODAL -->
+<div class="overlay" id="modal-overlay">
+  <div class="modal">
+    <h3 id="m-code">—</h3>
+    <p id="m-name">—</p>
+    <div class="mbtns">
+      <button onclick="confirmModal('obtained')">✅ Pegarla</button>
+      <button class="sec" onclick="confirmModal('repeated')">🔄 Repetida</button>
+      <button class="sec" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const API = 'http://127.0.0.1:8000/api/v1';
+let me = null;
+let allStickers = [];
+let inv = {};           // code → {is_pasted, quantity}
+let pendingCode = null;
+let activeSec = 'all';
+let activeRepFilter = 'all';
+
+// ══════════════════════════════
+//  AUTH
+// ══════════════════════════════
+function showAuth(tab){
+  gid('form-reg').style.display = tab==='reg' ? '' : 'none';
+  gid('form-log').style.display = tab==='log' ? '' : 'none';
+  gid('t-reg').classList.toggle('active', tab==='reg');
+  gid('t-log').classList.toggle('active', tab==='log');
+}
+
+async function doRegister(){
+  const username=v('r-user').trim(), email=v('r-email').trim(), password=v('r-pass');
+  if(!username||!email||!password) return toast('Completá todos los campos','err');
+  const res = await api('POST','/users/',{username,email,password});
+  if(res.error) return toast(res.error,'err');
+  toast(`Bienvenido/a, ${res.username}!`,'ok');
+  enterApp(res);
+}
+
+async function doLogin(){
+  const username=v('l-user').trim(), password=v('l-pass');
+  if(!username||!password) return toast('Ingresá usuario y contraseña','err');
+  const res = await api('POST','/users/login',{username,password});
+  if(res.error) return toast(res.error,'err');
+  enterApp(res);
+}
+
+function logout(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  me=null; inv={}; allStickers=[];
+  gid('app-section').style.display='none';
+  gid('auth-section').style.display='';
+  gid('user-badge').style.display='none';
+  gid('l-user').value=''; gid('l-pass').value='';
+}
+
+async function enterApp(user){
+  me=user;
+  gid('auth-section').style.display='none';
+  gid('app-section').style.display='';
+  gid('user-badge').style.display='';
+  gid('badge-name').textContent=me.username;
+  await loadCatalog();
+  await loadInventory();
+  renderAlbum();
+  refreshProgress();
+}
+
+// ══════════════════════════════
+//  DATOS
+// ══════════════════════════════
+async function loadCatalog(){
+  const d = await api('GET','/stickers/');
+  if(!d.error){ allStickers=d; buildFilters(); }
+}
+
+async function loadInventory(){
+  const d = await api('GET',`/inventory/${me.id}/stickers`);
+  if(d.error) return;
+  inv={};
+  for(const item of d) inv[item.sticker.code]={is_pasted:item.is_pasted, quantity:item.quantity};
+}
+
+// ══════════════════════════════
+//  ÁLBUM
+// ══════════════════════════════
+function buildFilters(){
+  const secs=['all',...new Set(allStickers.map(s=>s.section))];
+  gid('sec-filters').innerHTML=secs.map(s=>
+    `<button class="fbtn${s==='all'?' active':''}" onclick="filterSec(this,'${esc(s)}')">${s==='all'?'Todas':s}</button>`
+  ).join('');
+}
+
+function filterSec(el,sec){
+  activeSec=sec;
+  document.querySelectorAll('#sec-filters .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderAlbum();
+}
+
+function renderAlbum(){
+  const list = activeSec==='all' ? allStickers : allStickers.filter(s=>s.section===activeSec);
+  const secs  = [...new Set(list.map(s=>s.section))];
+  gid('sticker-catalog').innerHTML = secs.map(sec=>{
+    const items=list.filter(s=>s.section===sec);
+    return `<div class="section-title">${esc(sec)}</div>
+      <div class="sg">${items.map(stickerHTML).join('')}</div>`;
+  }).join('');
+}
+
+function stickerHTML(s){
+  const st=inv[s.code];
+  let cls='', icon='', badge='';
+  if(st){
+    cls   = st.is_pasted ? 'pasted' : 'repeated';
+    icon  = st.is_pasted ? '<span class="si">✅</span>' : '<span class="si">🔄</span>';
+    if(st.quantity>1) badge=`<span class="sb">x${st.quantity}</span>`;
+  }
+  return `<div class="stk ${cls}${s.is_special?' special':''}"
+    onclick="openModal('${s.code}','${esc(s.player_name||s.description||s.code)}')">
+    ${icon}${badge}
+    <div class="sc">${s.code}</div>
+    <div class="sn">${esc(s.player_name||s.description||'')}</div>
+  </div>`;
+}
+
+// ══════════════════════════════
+//  MODAL
+// ══════════════════════════════
+function openModal(code,name){
+  pendingCode=code;
+  gid('m-code').textContent=code;
+  gid('m-name').textContent=name;
+  gid('modal-overlay').classList.add('open');
+}
+function closeModal(){
+  gid('modal-overlay').classList.remove('open');
+  pendingCode=null;
+}
+async function confirmModal(action){
+  const code=pendingCode;
+  closeModal();
+  if(!code) return;
+  await doAddSticker(code,action);
+}
+
+// ══════════════════════════════
+//  AGREGAR
+// ══════════════════════════════
+async function addByCode(){
+  const code=v('add-code').trim().toUpperCase();
+  const action=v('add-action');
+  if(!code) return toast('Ingresá el código','err');
+  await doAddSticker(code,action);
+  gid('add-code').value='';
+}
+
+async function doAddSticker(code,action){
+  const res = await api('POST',`/inventory/${me.id}/sticker`,{sticker_code:code,action});
+  if(res.error) return toast(res.error,'err');
+  inv[res.sticker.code]={is_pasted:res.is_pasted, quantity:res.quantity};
+  const label = action==='obtained' ? 'pegada ✅' : 'marcada como repetida 🔄';
+  toast(`${code} ${label}`,'ok');
+  renderAlbum();
+  renderReport();
+  refreshProgress();
+}
+
+// ══════════════════════════════
+//  PROGRESO
+// ══════════════════════════════
+async function refreshProgress(){
+  const d = await api('GET',`/inventory/${me.id}/progress`);
+  if(d.error) return;
+  const pct=d.completion_percentage;
+  gid('pct-lbl').textContent=pct+'%';
+  gid('bar-fill').style.width=pct+'%';
+  gid('s-pasted').textContent=d.pasted_stickers;
+  gid('s-total').textContent=d.total_stickers;
+  gid('s-miss').textContent=d.total_stickers-d.pasted_stickers;
+  gid('s-dups').textContent=d.duplicates.length;
+
+  const wrap=gid('dup-list-wrap');
+  if(!d.duplicates.length){
+    wrap.innerHTML='<div class="empty">No tenés figuritas repetidas 🎉</div>';
+  } else {
+    wrap.innerHTML='<div class="dl">'+
+      d.duplicates.map(d=>`
+        <div class="di">
+          <span class="dc">${d.sticker.code}</span>
+          <span class="dn">${esc(d.sticker.player_name||d.sticker.description||'—')}</span>
+          <span class="dq">x${d.quantity}</span>
+        </div>`).join('')+
+      '</div>';
+  }
+}
+
+// ══════════════════════════════
+//  REPORTE
+// ══════════════════════════════
+function repFilter(el,f){
+  activeRepFilter=f;
+  document.querySelectorAll('#rep-filters .fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderRepTable();
+}
+
+function renderReport(){
+  renderRepSections();
+  renderRepTable();
+}
+
+function renderRepSections(){
+  const secs=[...new Set(allStickers.map(s=>s.section))];
+  gid('rep-sections').innerHTML=secs.map(sec=>{
+    const items=allStickers.filter(s=>s.section===sec);
+    const pasted   = items.filter(s=>inv[s.code]?.is_pasted).length;
+    const repeated = items.filter(s=>inv[s.code]&&!inv[s.code].is_pasted).length;
+    const missing  = items.length-pasted-repeated;
+    const pct      = items.length ? Math.round(pasted/items.length*100) : 0;
+    // color: verde si >75%, amarillo si >40%, rojo si <=40%
+    const barColor = pct>=75?'#40c070':pct>=40?'#f0c040':'#f06060';
+    return `<div class="rep-card">
+      <div class="rep-head">
+        <span class="rep-sec" title="${esc(sec)}">${esc(sec)}</span>
+        <span class="rep-pct">${pct}%</span>
+      </div>
+      <div class="rep-bar"><div class="rep-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="rep-counts">
+        <span class="c-ok">✅ ${pasted} pegadas</span>
+        <span class="c-rep">🔄 ${repeated} repet.</span>
+        <span class="c-mis">❌ ${missing} faltan</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderRepTable(){
+  const search=(v('rep-search')||'').toLowerCase();
+  let list=allStickers;
+
+  if(activeRepFilter==='pasted')   list=list.filter(s=>inv[s.code]?.is_pasted);
+  else if(activeRepFilter==='repeated') list=list.filter(s=>inv[s.code]&&!inv[s.code].is_pasted);
+  else if(activeRepFilter==='missing')  list=list.filter(s=>!inv[s.code]);
+
+  if(search) list=list.filter(s=>
+    s.code.toLowerCase().includes(search)||
+    (s.player_name||'').toLowerCase().includes(search)||
+    (s.description||'').toLowerCase().includes(search)||
+    s.section.toLowerCase().includes(search)
+  );
+
+  if(!list.length){
+    gid('rep-table-wrap').innerHTML='<div class="empty">Sin resultados para este filtro</div>';
+    return;
+  }
+
+  const rows=list.map(s=>{
+    const st=inv[s.code];
+    let tag,status;
+    if(!st)                  { tag='<span class="tag tag-mis">❌ Falta</span>';       status='missing'; }
+    else if(st.is_pasted)    { tag='<span class="tag tag-ok">✅ Pegada</span>';        status='pasted';  }
+    else                     { tag='<span class="tag tag-rep">🔄 Repetida</span>';     status='repeated';}
+    const qty = st&&st.quantity>1 ? `<span class="dq" style="font-size:.7rem">x${st.quantity}</span>` : '';
+    return `<tr>
+      <td><strong style="color:#f0c040">${s.code}</strong></td>
+      <td>${esc(s.section)}</td>
+      <td>${esc(s.player_name||s.description||'—')}</td>
+      <td>${tag} ${qty}</td>
+    </tr>`;
+  }).join('');
+
+  gid('rep-table-wrap').innerHTML=`
+    <table class="rep-table">
+      <thead><tr><th>Código</th><th>Sección</th><th>Jugador / Descripción</th><th>Estado</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="font-size:.75rem;color:#555;margin-top:8px;text-align:right">${list.length} figuritas</p>`;
+}
+
+// ══════════════════════════════
+//  TABS
+// ══════════════════════════════
+function switchTab(el,name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  gid('tab-'+name).classList.add('active');
+  if(name==='progreso') refreshProgress();
+  if(name==='reporte')  renderReport();
+}
+
+// ══════════════════════════════
+//  HELPERS
+// ══════════════════════════════
+async function api(method,path,body){
+  try{
+    const opts={method,headers:{'Content-Type':'application/json'}};
+    if(body) opts.body=JSON.stringify(body);
+    const res=await fetch(API+path,opts);
+    const data=await res.json();
+    if(!res.ok) return {error:data.detail||'Error del servidor'};
+    return data;
+  }catch{
+    return {error:'No se pudo conectar al servidor'};
+  }
+}
+function gid(id){return document.getElementById(id)}
+function v(id){const el=gid(id);return el?el.value:''}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+let tT;
+function toast(msg,type=''){
+  const el=gid('toast');
+  el.textContent=msg; el.className='show '+type;
+  clearTimeout(tT); tT=setTimeout(()=>el.className='',3500);
+}
+</script>
+</body>
+</html>
