@@ -14,31 +14,54 @@ Base.metadata.create_all(bind=engine)
 
 # ── Nombre oficial de cada selección ─────────────────────────────
 COUNTRY_NAMES = {
-    "USA": "Estados Unidos", "COL": "Colombia",   "SCO": "Escocia",
-    "ANG": "Angola",         "MEX": "México",      "URU": "Uruguay",
-    "POL": "Polonia",        "OMA": "Omán",        "CAN": "Canadá",
-    "NED": "Países Bajos",   "JPN": "Japón",       "ALG": "Argelia",
-    "FRA": "Francia",        "ECU": "Ecuador",     "SWE": "Suecia",
-    "UZB": "Uzbekistán",     "BRA": "Brasil",      "SUI": "Suiza",
-    "KOR": "Corea del Sur",  "JAM": "Jamaica",     "ENG": "Inglaterra",
-    "PER": "Perú",           "UKR": "Ucrania",     "NZL": "Nueva Zelanda",
-    "ARG": "Argentina",      "AUT": "Austria",     "IRN": "Irán",
-    "CMR": "Camerún",        "ESP": "España",      "CHI": "Chile",
-    "AUS": "Australia",      "CIV": "Costa de Marfil", "POR": "Portugal",
-    "DEN": "Dinamarca",      "KSA": "Arabia Saudita",  "MLI": "Mali",
-    "ITA": "Italia",         "MAR": "Marruecos",   "PAN": "Panamá",
-    "IRQ": "Irak",           "GER": "Alemania",    "CRO": "Croacia",
-    "CRC": "Costa Rica",     "TUN": "Túnez",       "BEL": "Bélgica",
-    "VEN": "Venezuela",      "GHA": "Ghana",       "UAE": "Emiratos Árabes",
+    # UEFA (16)
+    "GER": "Alemania",           "AUT": "Austria",
+    "BEL": "Bélgica",            "BIH": "Bosnia y Herzegovina",
+    "CRO": "Croacia",            "SCO": "Escocia",
+    "ESP": "España",             "FRA": "Francia",
+    "ENG": "Inglaterra",         "NOR": "Noruega",
+    "NED": "Países Bajos",       "POR": "Portugal",
+    "CZE": "República Checa",    "SWE": "Suecia",
+    "SUI": "Suiza",              "TUR": "Turquía",
+    # CAF (10)
+    "ALG": "Argelia",            "CPV": "Cabo Verde",
+    "CIV": "Costa de Marfil",    "EGY": "Egipto",
+    "GHA": "Ghana",              "MAR": "Marruecos",
+    "COD": "Rep. Dem. Congo",    "SEN": "Senegal",
+    "RSA": "Sudáfrica",          "TUN": "Túnez",
+    # AFC (9)
+    "KSA": "Arabia Saudita",     "AUS": "Australia",
+    "QAT": "Catar",              "KOR": "Corea del Sur",
+    "IRN": "Irán",               "IRQ": "Irak",
+    "JOR": "Jordania",           "JPN": "Japón",
+    "UZB": "Uzbekistán",
+    # CONMEBOL (6)
+    "ARG": "Argentina",          "BRA": "Brasil",
+    "COL": "Colombia",           "ECU": "Ecuador",
+    "PAR": "Paraguay",           "URU": "Uruguay",
+    # CONCACAF (6)
+    "CAN": "Canadá",             "USA": "Estados Unidos",
+    "MEX": "México",             "CUW": "Curazao",
+    "HAI": "Haití",              "PAN": "Panamá",
+    # OFC (1)
+    "NZL": "Nueva Zelanda",
 }
 
 # Orden exacto de los 48 países
 COUNTRIES = [
-    "USA","COL","SCO","ANG","MEX","URU","POL","OMA","CAN","NED",
-    "JPN","ALG","FRA","ECU","SWE","UZB","BRA","SUI","KOR","JAM",
-    "ENG","PER","UKR","NZL","ARG","AUT","IRN","CMR","ESP","CHI",
-    "AUS","CIV","POR","DEN","KSA","MLI","ITA","MAR","PAN","IRQ",
-    "GER","CRO","CRC","TUN","BEL","VEN","GHA","UAE",
+    # UEFA
+    "GER","AUT","BEL","BIH","CRO","SCO","ESP","FRA",
+    "ENG","NOR","NED","POR","CZE","SWE","SUI","TUR",
+    # CAF
+    "ALG","CPV","CIV","EGY","GHA","MAR","COD","SEN","RSA","TUN",
+    # AFC
+    "KSA","AUS","QAT","KOR","IRN","IRQ","JOR","JPN","UZB",
+    # CONMEBOL
+    "ARG","BRA","COL","ECU","PAR","URU",
+    # CONCACAF
+    "CAN","USA","MEX","CUW","HAI","PAN",
+    # OFC
+    "NZL",
 ]
 assert len(COUNTRIES) == 48, f"Se esperan 48 países, hay {len(COUNTRIES)}"
 
